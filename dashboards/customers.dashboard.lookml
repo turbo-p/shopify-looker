@@ -62,7 +62,7 @@
     height: 10
   - title: Total Customers This Month
     name: Total Customers This Month
-    model: block_shopify
+    model: shopify
     explore: orders
     type: single_value
     fields: [orders.timestamp_month, customer_facts.count]
@@ -70,7 +70,7 @@
     sorts: [orders.timestamp_month desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: last_month, label: last_month, expression: 'offset(${customer.count},
+    dynamic_fields: [{table_calculation: last_month, label: last_month, expression: 'offset(${customer_facts.count},
           1)', value_format: !!null '', value_format_name: decimal_0}, {table_calculation: wow_change,
         label: wow_change, expression: "(${customer_facts.count} - ${last_month}) / ${last_month}",
         value_format: !!null '', value_format_name: percent_0}]
@@ -113,7 +113,7 @@
     height: 5
   - title: New vs Repeat Customers
     name: New vs Repeat Customers
-    model: block_shopify
+    model: shopify
     explore: orders
     type: looker_pie
     fields: [customer_facts.customer_type, customer_facts.count]
