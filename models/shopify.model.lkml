@@ -2,7 +2,7 @@ connection: "redshift"
 
 # include all the views
 include: "/views/**/*.view"
-include: "/dashboards/overview.dashboard.lookml"
+include: "/dashboards/*.dashboard.lookml"
 
 datagroup: shopify_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
