@@ -11,6 +11,8 @@
     fields: [orders.count, orders.timestamp_month, customer_facts.customer_type]
     pivots: [customer_facts.customer_type]
     fill_fields: [orders.timestamp_month]
+    filters:
+      orders.order_source: web
     sorts: [orders.timestamp_month desc, customer_facts.customer_type]
     limit: 500
     color_application:
@@ -61,16 +63,16 @@
   - title: Total Customers This Month
     name: Total Customers This Month
     model: block_shopify
-    explore: order
+    explore: orders
     type: single_value
-    fields: [order.created_month, customer.count]
-    fill_fields: [order.created_month]
-    sorts: [order.created_month desc]
+    fields: [orders.timestamp_month, customer_facts.count]
+    fill_fields: [orders.timestamp_month]
+    sorts: [orders.timestamp_month desc]
     limit: 500
     column_limit: 50
     dynamic_fields: [{table_calculation: last_month, label: last_month, expression: 'offset(${customer.count},
           1)', value_format: !!null '', value_format_name: decimal_0}, {table_calculation: wow_change,
-        label: wow_change, expression: "(${customer.count} - ${last_month}) / ${last_month}",
+        label: wow_change, expression: "(${customer_facts.count} - ${last_month}) / ${last_month}",
         value_format: !!null '', value_format_name: percent_0}]
     custom_color_enabled: false
     custom_color: forestgreen
@@ -112,10 +114,10 @@
   - title: New vs Repeat Customers
     name: New vs Repeat Customers
     model: block_shopify
-    explore: order
+    explore: orders
     type: looker_pie
-    fields: [customer.new_vs_repeat, customer.count]
-    sorts: [customer.new_vs_repeat desc]
+    fields: [customer_facts.customer_type, customer_facts.count]
+    sorts: [customer_facts.customer_type desc]
     limit: 500
     column_limit: 50
     value_labels: legend
